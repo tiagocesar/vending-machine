@@ -8,25 +8,22 @@ void Main()
 
 	var faceValues = new[] { 100, 50, 20, 10 };
 	
-	var results = new List<int>();
-	
-	while (change > 0)
+	var results = new Stack<int>();
+
+	foreach (var faceValue in faceValues)
 	{
-		foreach(var faceValue in faceValues)
-		{
-			CalculateChange(ref change, results, faceValue);
-		}
+		CalculateChange(ref change, results, faceValue);
 	}
 	
 	results.Dump();
 }
 
-public void CalculateChange(ref int change, List<int> results, int faceValue)
+public void CalculateChange(ref int change, Stack<int> results, int faceValue)
 {
-	if (change % faceValue != change)
+	while (change >= faceValue)
 	{
-		change -= faceValue;		
-		results.Add(faceValue);
+		change -= faceValue;
+		results.Push(faceValue);
 	}
 }
 

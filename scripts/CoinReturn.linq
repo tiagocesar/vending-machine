@@ -6,39 +6,26 @@ void Main()
 	var price = 130;
 	var change = paidAmount - price;
 	
+	var results = new List<int>();
+	
 	while (change > 0)
 	{
-		if (CalculateChange(ref change, 100) > 0)
-		{
-			Console.WriteLine("Returned 1 euro coin");
-		}
-
-		if (CalculateChange(ref change, 50) > 0)
-		{
-			Console.WriteLine("Returned 50 cents coin");
-		}
-
-		if (CalculateChange(ref change, 20) > 0)
-		{
-			Console.WriteLine("Returned 20 cents coin");
-		}
-
-		if (CalculateChange(ref change, 10) > 0)
-		{
-			Console.WriteLine("Returned 10 cents coin");
-		}
+		CalculateChange(ref change, results, 100);
+		CalculateChange(ref change, results, 50);
+		CalculateChange(ref change, results, 20);
+		CalculateChange(ref change, results, 10);
 	}
+	
+	results.Dump();
 }
 
-public int CalculateChange(ref int change, int faceValue)
+public void CalculateChange(ref int change, List<int> results, int faceValue)
 {
 	if (change % faceValue != change)
 	{
-		change -= faceValue;
-		return faceValue;
+		change -= faceValue;		
+		results.Add(faceValue);
 	}
-	
-	return 0;
 }
 
 // Stack of coins:

@@ -1,3 +1,5 @@
+<Query Kind="Program" />
+
 void Main()
 {
 	var paidAmount = 200;
@@ -6,30 +8,37 @@ void Main()
 	
 	while (change > 0)
 	{
-		if (change % 100 != change)
+		if (CalculateChange(ref change, 100) > 0)
 		{
-			change -= 100;			
 			Console.WriteLine("Returned 1 euro coin");
 		}
 
-		if (change % 50 != change)
+		if (CalculateChange(ref change, 50) > 0)
 		{
-			change -= 50;
 			Console.WriteLine("Returned 50 cents coin");
 		}
 
-		if (change % 20 != change)
+		if (CalculateChange(ref change, 20) > 0)
 		{
-			change -= 20;
 			Console.WriteLine("Returned 20 cents coin");
 		}
 
-		if (change % 10 != change)
+		if (CalculateChange(ref change, 10) > 0)
 		{
-			change -= 10;
 			Console.WriteLine("Returned 10 cents coin");
 		}
 	}
+}
+
+public int CalculateChange(ref int change, int faceValue)
+{
+	if (change % faceValue != change)
+	{
+		change -= faceValue;
+		return faceValue;
+	}
+	
+	return 0;
 }
 
 // Stack of coins:

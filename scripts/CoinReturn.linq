@@ -2,23 +2,28 @@
 
 void Main()
 {
-	var paidAmount = 200;
+	var paidAmount = 140;
 	var price = 130;
 	var change = paidAmount - price;
 
+	CalculateChange(change).Dump();
+}
+
+public Stack<int> CalculateChange(int change)
+{
 	var faceValues = new[] { 100, 50, 20, 10 };
 	
 	var results = new Stack<int>();
 
 	foreach (var faceValue in faceValues)
 	{
-		CalculateChange(ref change, results, faceValue);
+		SelectCoins(ref change, results, faceValue);
 	}
 	
-	results.Dump();
+	return results;
 }
 
-public void CalculateChange(ref int change, Stack<int> results, int faceValue)
+public void SelectCoins(ref int change, Stack<int> results, int faceValue)
 {
 	while (change >= faceValue)
 	{

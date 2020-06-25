@@ -5,15 +5,17 @@ void Main()
 	var paidAmount = 200;
 	var price = 130;
 	var change = paidAmount - price;
+
+	var faceValues = new[] { 100, 50, 20, 10 };
 	
 	var results = new List<int>();
 	
 	while (change > 0)
 	{
-		CalculateChange(ref change, results, 100);
-		CalculateChange(ref change, results, 50);
-		CalculateChange(ref change, results, 20);
-		CalculateChange(ref change, results, 10);
+		foreach(var faceValue in faceValues)
+		{
+			CalculateChange(ref change, results, faceValue);
+		}
 	}
 	
 	results.Dump();

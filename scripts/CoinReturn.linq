@@ -92,6 +92,7 @@ public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dicti
 {
 	while (change >= faceValue)
 	{
+		// Are there enough coins of this value?
 		if (coinStack[faceValue] <= 0) break;
 		
 		coinStack[faceValue] -= 1;
@@ -103,12 +104,13 @@ public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dicti
 
 public Dictionary<int, int> GetCoinStack()
 {
-	var coinStack = new Dictionary<int, int>();
-
-	coinStack.Add(10, 1);
-	coinStack.Add(20, 1);
-	coinStack.Add(50, 100);
-	coinStack.Add(100, 100);
+	var coinStack = new Dictionary<int, int>
+	{
+		{ 10, 1 },
+		{ 20, 1 },
+		{ 50, 100 },
+		{ 100, 100 }
+	};
 
 	return coinStack;
 }

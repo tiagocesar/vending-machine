@@ -71,7 +71,7 @@ public void ShouldThrowExceptionNotEnoughChange()
 public Stack<int> CalculateChange(int change)
 {
 	var faceValues = new[] { 100, 50, 20, 10 };
-	var coinStack = GetCoinStack();
+	var coinStack = GetMachineCoinInfo();
 	
 	var results = new Stack<int>();
 
@@ -102,7 +102,7 @@ public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dicti
 	}
 }
 
-public Dictionary<int, int> GetCoinStack()
+public Dictionary<int, int> GetMachineCoinInfo()
 {
 	var coinStack = new Dictionary<int, int>
 	{

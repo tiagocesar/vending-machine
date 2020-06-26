@@ -88,42 +88,27 @@ public Stack<int> CalculateChange(int change)
 	return results;
 }
 
-public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dictionary<int, Stack<int>> coinStack)
+public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dictionary<int, int> coinStack)
 {
 	while (change >= faceValue)
 	{
-		// Are there enough coins of the given face value?
-		if (!coinStack[faceValue].TryPop(out var coin)) break;
+		if (coinStack[faceValue] <= 0) break;
+		
+		coinStack[faceValue] -= 1;
 
 		change -= faceValue;
-		results.Push(coin);
+		results.Push(faceValue);
 	}
 }
 
-public Dictionary<int, Stack<int>> GetCoinStack()
+public Dictionary<int, int> GetCoinStack()
 {
-	var coinStack = new Dictionary<int, Stack<int>>();
+	var coinStack = new Dictionary<int, int>();
 
-	var coin_10 = new Stack<int>();
-	var coin_20 = new Stack<int>();
-	var coin_50 = new Stack<int>();
-	var coin_100 = new Stack<int>();
-
-	for (int i = 0; i < 100; i++)
-	{
-		//coin_10.Push(10);
-		//Coin_20.Push(20);
-		coin_50.Push(50);
-		coin_100.Push(100);
-	}
-
-	coin_10.Push(10);
-	coin_20.Push(20);
-
-	coinStack.Add(10, coin_10);
-	coinStack.Add(20, coin_20);
-	coinStack.Add(50, coin_50);
-	coinStack.Add(100, coin_100);
+	coinStack.Add(10, 1);
+	coinStack.Add(20, 1);
+	coinStack.Add(50, 100);
+	coinStack.Add(100, 100);
 
 	return coinStack;
 }

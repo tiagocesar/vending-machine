@@ -7,6 +7,8 @@
   <CopyLocal>true</CopyLocal>
 </Query>
 
+#region Tests
+
 void Main()
 {
 	// Stack of coins:
@@ -56,26 +58,80 @@ public void TestCoinReturns(int paidAmount, int price, int[] expectedResult)
 	Assert.Equal(expectedResult, actualResult.ToArray());
 }
 
+[Fact]
+public void ShouldThrowExceptionNotEnoughChange()
+{
+	var exception = Record.Exception(() => CalculateChange(90));
+	
+	Assert.IsType(typeof(NotEnoughChangeException), exception);
+}
+
+#endregion
+
 public Stack<int> CalculateChange(int change)
 {
 	var faceValues = new[] { 100, 50, 20, 10 };
+	var coinStack = GetCoinStack();
 	
 	var results = new Stack<int>();
 
 	foreach (var faceValue in faceValues)
 	{
-		SelectCoins(ref change, results, faceValue);
+		SelectCoins(ref change, results, faceValue, coinStack);
 	}
-	
+
+	if (change > 0)
+	{
+		throw new NotEnoughChangeException("Not enough change");
+	}
+
 	return results;
 }
 
-public void SelectCoins(ref int change, Stack<int> results, int faceValue)
+public void SelectCoins(ref int change, Stack<int> results, int faceValue, Dictionary<int, Stack<int>> coinStack)
 {
 	while (change >= faceValue)
 	{
+		// Are there enough coins of the given face value?
+		if (!coinStack[faceValue].TryPop(out var coin)) break;
+
 		change -= faceValue;
-		results.Push(faceValue);
+		results.Push(coin);
+	}
+}
+
+public Dictionary<int, Stack<int>> GetCoinStack()
+{
+	var coinStack = new Dictionary<int, Stack<int>>();
+
+	var coin_10 = new Stack<int>();
+	var coin_20 = new Stack<int>();
+	var coin_50 = new Stack<int>();
+	var coin_100 = new Stack<int>();
+
+	for (int i = 0; i < 100; i++)
+	{
+		//coin_10.Push(10);
+		//Coin_20.Push(20);
+		coin_50.Push(50);
+		coin_100.Push(100);
+	}
+
+	coin_10.Push(10);
+	coin_20.Push(20);
+
+	coinStack.Add(10, coin_10);
+	coinStack.Add(20, coin_20);
+	coinStack.Add(50, coin_50);
+	coinStack.Add(100, coin_100);
+
+	return coinStack;
+}
+
+public class NotEnoughChangeException : Exception
+{
+	public NotEnoughChangeException(string message) : base(message)
+	{
 	}
 }
 

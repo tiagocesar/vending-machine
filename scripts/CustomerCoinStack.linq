@@ -7,6 +7,8 @@ void Main()
 	
 	totalAmount = coinStack.Push(100);
 	totalAmount = coinStack.Push(50);
+	totalAmount = coinStack.Push(20);
+	totalAmount = coinStack.Push(50);
 	
 	coinStack.Coins.Dump("Coins inserted by the customer");
 	

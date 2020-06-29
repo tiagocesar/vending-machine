@@ -2,7 +2,7 @@
 
 void Main()
 {
-	var products = new MachineProducts();
+	var products = new ProductGrid();
 	var tea = products.Products.Where(x => x.Code == 1);
 	var chai = products.Products.Where(x => x.Code == 5);
 	
@@ -15,14 +15,21 @@ void Main()
 	tea.Dump("End of the day - tea");
 	chai.Dump("End of the day - chai");
 
-	products.Sell(5);
+	try
+	{	        
+		products.Sell(5);
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine($"Exception of type {ex.GetType()} thrown: {ex.Message}");
+	}
 }
 
-public class MachineProducts
+public class ProductGrid
 {
-	public List<ProductGrid> Products { get; } = new List<ProductGrid>();
-	
-	public MachineProducts()
+	public List<Product> Products { get; } = new List<Product>();
+
+	public ProductGrid()
 	{
 		// Seeding
 		AddProduct(1, "Tea", 130, 10);
@@ -31,44 +38,34 @@ public class MachineProducts
 		AddProduct(4, "Chicken soup", 180, 15);
 		AddProduct(5, "Chai", 200, 1);
 	}
-	
+
 	public void AddProduct(int code, string name, int price, int quantity)
 	{
 		if (Products.Any(x => x.Code == code)) throw new ArgumentException("The specified code is already assigned");
-		
-		Products.Add(new ProductGrid(code, new Product(name, price, quantity)));
+
+		Products.Add(new Product(code, name, price, quantity));
 	}
-	
+
 	public bool Sell(int code)
 	{
-		var product = Products.Single(x => x.Code == code).Product;
-		
-		product.Sell();
-		
-		return true;
-	}
-}
+		var product = Products.Single(x => x.Code == code);
 
-public class ProductGrid
-{
-	public int Code { get; }
-	public Product Product { get; }
-	
-	public ProductGrid(int code, Product product)
-	{
-		Code = code;
-		Product = product;
+		product.Sell();
+
+		return true;
 	}
 }
 
 public class Product
 {
+	public int Code { get; }
 	public string Name { get; }
 	public int Price { get; }
 	public int Quantity { get; private set; }
 	
-	public Product(string name, int price, int quantity)
+	public Product(int code, string name, int price, int quantity)
 	{
+		Code = code;
 		Name = name;
 		Price = price;
 		Quantity = quantity;

@@ -31,5 +31,7 @@ namespace Domain
 
             return product;
         }
+
+        public IReadOnlyCollection<Product> GetAllProducts() => Products;
     }
 }

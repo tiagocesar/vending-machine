@@ -7,7 +7,7 @@ namespace Domain.Utils
     [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services)
+        public static IServiceCollection RegisterDomainServices(this IServiceCollection services)
         {
             services.AddSingleton<IProductGrid, ProductGrid>();
             services.AddSingleton<ICustomerCoinStack, CustomerCoinStack>();

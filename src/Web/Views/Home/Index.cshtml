@@ -1,0 +1,43 @@
+﻿@model Web.Models.HomeViewModel
+
+@{ var message = ViewData["Message"].ToString(); }
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <h3 style="text-align: center;">@Html.Raw(message)</h3>
+}
+
+<div class="text-center" xmlns="http://www.w3.org/1999/html">
+    <h1 class="display-4">Vending Machine</h1>
+    <p>Available amount: @Model.AvailableAmount</p>
+
+    <fieldset>
+        <legend>Add coins</legend>
+
+        <form asp-controller="Home" asp-action="AddCoin" method="post">
+            <button type="submit" name="CoinValue" value="10">Add a 10 cent coin</button><br/><br/>
+            <button type="submit" name="CoinValue" value="20">Add a 20 cent coin</button><br/><br/>
+            <button type="submit" name="CoinValue" value="50">Add a 50 cent coin</button><br/><br/>
+            <button type="submit" name="CoinValue" value="100">Add a 1 euro coin</button>
+        </form>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Products</legend>
+        
+        <form asp-controller="Home" asp-action="GetProduct" method="post">
+            @foreach (var product in Model.Products)
+            {
+                <button type="submit" name="ProductCode" value="@product.Code">Get @product.Name for € @($"{Convert.ToDecimal(product.Price) / 100:#.00}")</button><br /><br />
+            }
+        </form>
+    </fieldset>
+    
+    <fieldset>
+            <legend>Other</legend>
+            
+            <form asp-controller="Home" asp-action="ReturnCoins" method="post">
+                <button type="submit">Return coins</button>
+            </form>
+        </fieldset>
+</div>

@@ -7,9 +7,10 @@ namespace Application.Utils
     [ExcludeFromCodeCoverage]
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services)
+        public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
         {
             services.AddSingleton<IChangeService, ChangeService>();
+            services.AddSingleton<IOperationService, OperationService>();
             
             return services;
         }

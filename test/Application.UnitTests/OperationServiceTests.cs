@@ -14,7 +14,7 @@ namespace Application.UnitTests
         public void AddCoin_01()
         {
             var customerCoinStack = new CustomerCoinStack();
-            var sut = new OperationService(customerCoinStack, default, default);
+            var sut = new OperationService(customerCoinStack, default, default, default);
 
             sut.AddCoin(100);
             var results = sut.AddCoin(100);
@@ -26,7 +26,7 @@ namespace Application.UnitTests
         public void ReturnCoins_01()
         {
             var customerCoinStack = new CustomerCoinStack();
-            var sut = new OperationService(customerCoinStack, default, default);
+            var sut = new OperationService(customerCoinStack, default, default, default);
 
             sut.AddCoin(50);
             sut.AddCoin(20);
@@ -55,7 +55,7 @@ namespace Application.UnitTests
 
             var changeService = new ChangeService(machineCoinStack);
 
-            var sut = new OperationService(customerCoinStack, productGrid, changeService);
+            var sut = new OperationService(customerCoinStack, productGrid, changeService, machineCoinStack);
 
             var result = sut.ProcessSale(1);
 
@@ -80,7 +80,7 @@ namespace Application.UnitTests
             var productGrid = new ProductGrid();
             productGrid.AddProduct(1, "Tea", 130, 20);
 
-            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()));
+            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()), default);
 
             var exception = Record.Exception(() => sut.ProcessSale(2));
 
@@ -97,7 +97,7 @@ namespace Application.UnitTests
             var productGrid = new ProductGrid();
             productGrid.AddProduct(1, "Tea", 130, 0);
 
-            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()));
+            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()), default);
 
             var exception = Record.Exception(() => sut.ProcessSale(1));
 
@@ -114,7 +114,7 @@ namespace Application.UnitTests
             var productGrid = new ProductGrid();
             productGrid.AddProduct(1, "Tea", 130, 20);
 
-            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()));
+            var sut = new OperationService(customerCoinStack, productGrid, new ChangeService(new MachineCoinStack()), default);
 
             var exception = Record.Exception(() => sut.ProcessSale(1));
 

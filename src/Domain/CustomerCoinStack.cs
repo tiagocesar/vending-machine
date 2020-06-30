@@ -8,13 +8,24 @@ namespace Domain
     {
         private Stack<int> Coins { get; } = new Stack<int>();
 
+        public int GetTotal() => Coins.Sum();
+
         public new int Push(int coin)
         {
             Coins.Push(coin);
 
-            return Coins.Sum();
+            return GetTotal();
         }
 
         public new bool TryPop(out int coin) => Coins.TryPop(out coin);
+
+        public int[] Flush()
+        {
+            var result = Coins.ToArray();
+            
+            Coins.Clear();
+
+            return result;
+        }
     }
 }

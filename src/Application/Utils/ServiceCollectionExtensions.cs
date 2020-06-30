@@ -10,7 +10,6 @@ namespace Application.Utils
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<IChangeService, ChangeService>();
-            services.AddSingleton<ISellingService, SellingService>();
             
             return services;
         }

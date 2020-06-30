@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Contracts;
+using Domain.Exceptions;
 
 namespace Domain
 {
@@ -26,6 +27,7 @@ namespace Domain
 
             if (product == default)
                 throw new ArgumentNullException(nameof(code), "No product with the specified code was found");
+            if (product.Quantity == 0) throw new ProductNotAvailableException("The product is depleted");
 
             return product;
         }

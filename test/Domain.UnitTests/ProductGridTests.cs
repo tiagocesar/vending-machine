@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -52,6 +53,19 @@ namespace Domain.UnitTests
             var exception = Record.Exception(() => productGrid.GetProduct(1));
 
             Assert.IsType<ArgumentNullException>(exception);
+        }
+
+        [Fact(DisplayName = "Getting all products should return a readonly collection")]
+        public void GetAllProducts_01()
+        {
+            var productGrid = new ProductGrid();
+
+            productGrid.AddProduct(1, "Tea", 130, 20);
+            productGrid.AddProduct(2, "Espresso", 180, 15);
+
+            var result = productGrid.GetAllProducts();
+            
+            Assert.IsAssignableFrom<IReadOnlyCollection<Product>>(result);
         }
     }
 }

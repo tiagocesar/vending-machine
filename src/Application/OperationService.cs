@@ -20,8 +20,6 @@ namespace Application
             _machineCoinStack = machineCoinStack;
         }
 
-        public int AddCoin(int value) => _customerCoinStack.Push(value);
-
         public int[] ReturnCoins() => _customerCoinStack.Flush();
 
         public Sale ProcessSale(int productCode)

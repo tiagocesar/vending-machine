@@ -10,26 +10,14 @@ namespace Application.UnitTests
 {
     public class OperationServiceTests
     {
-        [Fact(DisplayName = "Adding 2 1 euros coins should return an available amount of 200")]
-        public void AddCoin_01()
-        {
-            var customerCoinStack = new CustomerCoinStack();
-            var sut = new OperationService(customerCoinStack, default, default, default);
-
-            sut.AddCoin(100);
-            var results = sut.AddCoin(100);
-
-            results.Should().Be(200);
-        }
-
         [Fact(DisplayName = "Should return the 2 coins that were inserted")]
         public void ReturnCoins_01()
         {
             var customerCoinStack = new CustomerCoinStack();
             var sut = new OperationService(customerCoinStack, default, default, default);
 
-            sut.AddCoin(50);
-            sut.AddCoin(20);
+            customerCoinStack.Push(50);
+            customerCoinStack.Push(20);
 
             var result = sut.ReturnCoins();
 

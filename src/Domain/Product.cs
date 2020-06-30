@@ -7,8 +7,8 @@ namespace Domain
         public int Code { get; }
         public string Name { get; }
         public int Price { get; }
-        public int Quantity { get; private set; }
-	
+        private int Quantity { get; set; }
+
         public Product(int code, string name, int price, int quantity)
         {
             Code = code;
@@ -17,11 +17,15 @@ namespace Domain
             Quantity = quantity;
         }
 
-        protected internal void Sell()
+        public bool Sell(int paidAmount)
         {
             if (Quantity == 0) throw new ProductNotAvailableException("The product is depleted");
-		
+            if (paidAmount < Price)
+                throw new InsufficientAmountException($"The product price is higher than the paid amount");
+
             Quantity -= 1;
+
+            return true;
         }
     }
 }

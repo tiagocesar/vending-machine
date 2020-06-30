@@ -1,8 +1,9 @@
-﻿using Domain.Contracts;
+﻿using Application.Contracts;
+using Domain.Contracts;
 
 namespace Application
 {
-    public class SellingService
+    public class SellingService : ISellingService
     {
         private readonly IProductGrid _productGrid;
 
@@ -11,9 +12,10 @@ namespace Application
             _productGrid = productGrid;
         }
 
-        public void SellProduct()
+        public bool SellProduct(int code, int paidAmount)
         {
-            
+            var product = _productGrid.GetProduct(code);
+            return product.Sell(paidAmount);
         }
     }
 }

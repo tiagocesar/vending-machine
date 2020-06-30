@@ -3,6 +3,6 @@
     public interface IProductGrid
     {
         Product AddProduct(int code, string name, int price, int quantity);
-        void Sell(int code);
+        Product GetProduct(int code);
     }
 }

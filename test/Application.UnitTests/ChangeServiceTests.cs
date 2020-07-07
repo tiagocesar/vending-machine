@@ -55,5 +55,18 @@ namespace Application.UnitTests
 	
             Assert.IsType<NotEnoughChangeException>(exception);
         }
+        
+        [Fact(DisplayName = "Should return an exception due to not having enough change, and avoid leakage of coins")]
+        public void CalculateChange_03()
+        {
+            var machineCoinStack = new MachineCoinStack();
+            
+            machineCoinStack.AddCoin(20);
+            
+            var sut = new ChangeService(machineCoinStack);
+            var exception = Record.Exception(() => sut.CalculateChange(30));
+	
+            Assert.IsType<NotEnoughChangeException>(exception);
+        }
     }
 }

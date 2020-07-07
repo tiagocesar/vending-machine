@@ -4,5 +4,6 @@
     {
         void AddCoin(int faceValue);
         bool RemoveCoin(int faceValue);
+        bool HasEnoughCoins(int faceValue, int amount);
     }
 }

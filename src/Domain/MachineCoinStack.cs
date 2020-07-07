@@ -25,5 +25,7 @@ namespace Domain
             Coins[faceValue] -= 1;
             return true;
         }
+
+        public bool HasEnoughCoins(int faceValue, int amount) => Coins[faceValue] >= amount;
     }
 }
